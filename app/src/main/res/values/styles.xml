@@ -18,7 +18,7 @@
         <!--TODO check the font-->
     <style name="login_title_1">
         <item name="android:textColor">#fff</item>
-        <item name="android:textSize">48sp</item>
+        <item name="android:textSize">54sp</item>
         <item name="fontPath">fonts/Roboto-Thin.ttf</item>
     </style>
     <style name="login_title_2">
