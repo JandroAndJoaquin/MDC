@@ -3,5 +3,6 @@
     <string name="login_title1">Map Data</string>
     <string name="login_title2">COLLECTOR</string>
     <string name="login_user_text_placeholder">Email Address</string>
+    <string name="login_pass_text_placeholder">Password</string>
 
 </resources>
