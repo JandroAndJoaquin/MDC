@@ -1,23 +1,34 @@
 package com.example.android.mdc.activities;
 
+import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v4.widget.TextViewCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.mdc.R;
-
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import com.example.android.mdc.helpers.SoftKeyboard;
 
 public class LoginActivity extends AppCompatActivity {
 
     TextView title1, title2;
+    FrameLayout rootV;
+    Context ctx;
+    ImageView logo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ctx = LoginActivity.this;
+        rootV = (FrameLayout) findViewById(R.id.login_root_view);
+        InputMethodManager im = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        logo = (ImageView) findViewById(R.id.login_logo);
         title1 = (TextView) findViewById(R.id.login_title_1);
         title2 = (TextView) findViewById(R.id.login_title_2);
 
@@ -27,5 +38,37 @@ public class LoginActivity extends AppCompatActivity {
 
         title1.setTypeface(robotoLight);
         title2.setTypeface(robotoBold);
+
+        SoftKeyboard softKeyboard;
+        softKeyboard = new SoftKeyboard(rootV, im);
+        softKeyboard.setSoftKeyboardCallback(new SoftKeyboard.SoftKeyboardChanged()
+        {
+
+            @Override
+            public void onSoftKeyboardHide()
+            {
+                Log.v("JANDRO", "Hidden");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        logo.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
+
+            @Override
+            public void onSoftKeyboardShow()
+            {
+                Log.v("JANDRO", "Shown");
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        logo.setVisibility(View.INVISIBLE);
+                        logo.setVisibility(View.GONE);
+                    }
+                });
+            }
+        });
     }
 }

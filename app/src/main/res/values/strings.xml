@@ -4,5 +4,8 @@
     <string name="login_title2">COLLECTOR</string>
     <string name="login_user_text_placeholder">Email Address</string>
     <string name="login_pass_text_placeholder">Password</string>
-
+    <string name="login_forgot_password">Forgot password?</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="login_dont_have">Don\'t have an account?</string>
 </resources>
