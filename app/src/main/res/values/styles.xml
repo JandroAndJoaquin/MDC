@@ -8,4 +8,22 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name = "NoActionBar" parent = "Theme.AppCompat.Light.NoActionBar">
+        <item name = "android:windowActionBar">false</item>
+        <item name = "android:windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/newColorDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+        <!--TODO check the font-->
+    <style name="login_title_1">
+        <item name="android:textColor">#fff</item>
+        <item name="android:textSize">48sp</item>
+        <item name="fontPath">fonts/Roboto-Thin.ttf</item>
+    </style>
+    <style name="login_title_2">
+        <item name="android:textColor">#fff</item>
+        <item name="android:textSize">24sp</item>
+        <item name="fontPath">fonts/Roboto-Bold.ttf</item>
+    </style>
 </resources>

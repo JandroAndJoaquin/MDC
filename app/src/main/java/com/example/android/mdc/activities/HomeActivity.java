@@ -1,7 +1,9 @@
-package com.example.android.mdc;
+package com.example.android.mdc.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.android.mdc.R;
 
 public class HomeActivity extends AppCompatActivity {
 
