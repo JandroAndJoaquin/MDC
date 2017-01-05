@@ -8,4 +8,10 @@
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
     <string name="login_dont_have">Don\'t have an account?</string>
+    <string name="login_check_email">Check your Email</string>
+    <string name="login_check_pass">Check your Password</string>
+    <string name="login_forgot_email">Ups!&#8230;Looks like you forgot your email address. Please try again!!</string>
+    <string name="login_invalid_email">Ups!&#8230;Looks like you misspelled your email address. Please try again!!</string>
+    <string name="login_forgot_pass">Ups!&#8230;Looks like you forgot your password. Its important to know you are YOU!!</string>
+    <string name="login_too_short_pass">Ups!&#8230;Are you sure this is your password? Passwords in this app have more than 8 characters. Please try again!</string>
 </resources>

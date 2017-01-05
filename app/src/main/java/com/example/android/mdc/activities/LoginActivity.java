@@ -3,10 +3,13 @@ package com.example.android.mdc.activities;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,6 +23,9 @@ public class LoginActivity extends AppCompatActivity {
     FrameLayout rootV;
     Context ctx;
     ImageView logo;
+    Button submitBtn;
+    AlertDialog.Builder alertBuilder;
+    EditText email, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +37,13 @@ public class LoginActivity extends AppCompatActivity {
         logo = (ImageView) findViewById(R.id.login_logo);
         title1 = (TextView) findViewById(R.id.login_title_1);
         title2 = (TextView) findViewById(R.id.login_title_2);
-
+        submitBtn = (Button) findViewById(R.id.login_login_button);
         Typeface robotoLight = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Thin.ttf");
         Typeface robotoRegular = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Regular.ttf");
         Typeface robotoBold = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Bold.ttf");
+        email = (EditText) findViewById(R.id.login_email_input);
+        password = (EditText) findViewById(R.id.login_pass_input);
+        alertBuilder = new AlertDialog.Builder(ctx);
 
         title1.setTypeface(robotoLight);
         title2.setTypeface(robotoBold);
@@ -45,9 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         {
 
             @Override
-            public void onSoftKeyboardHide()
-            {
-                Log.v("JANDRO", "Hidden");
+            public void onSoftKeyboardHide(){
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -57,10 +64,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onSoftKeyboardShow()
-            {
-                Log.v("JANDRO", "Shown");
-
+            public void onSoftKeyboardShow(){
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -70,5 +74,26 @@ public class LoginActivity extends AppCompatActivity {
                 });
             }
         });
+
+        submitBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                String emailText = email.getText().toString();
+                String passText = password.getText().toString();
+                if(!isEmailValid(emailText)){
+                    alertBuilder.setTitle(R.string.login_check_email).setMessage(emailText.equals("")?R.string.login_forgot_email:R.string.login_invalid_email).setPositiveButton("OK", null).create().show();
+                }else if(passText.equals("")){
+                    alertBuilder.setTitle(R.string.login_check_pass).setMessage(R.string.login_forgot_pass).setPositiveButton("OK", null).create().show();
+                }else if(!isTextLongEnough(8, passText)){
+                    alertBuilder.setTitle(R.string.login_check_pass).setMessage(R.string.login_too_short_pass).setPositiveButton("OK", null).create().show();
+                }
+            }
+        });
+    }
+    public static boolean isEmailValid(String email){
+        return !(email==null) && Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+    public static boolean isTextLongEnough(int amount, String text){
+        return text!=null && text.length()>amount;
     }
 }
