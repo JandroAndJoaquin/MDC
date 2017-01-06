@@ -8,4 +8,19 @@
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
     <string name="login_dont_have">Don\'t have an account?</string>
+    <string name="sign_up_sign_up">Already have an account?</string>
+    <string name="name">Name</string>
+    <string name="re_enter_pass">Re-enter password</string>
+    <string name="dialog_title_email">Check your Email</string>
+    <string name="dialog_text_email">Ups!&#8230;Looks like you forgot your email address. Please try again!</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_title_name">Check your name</string>
+    <string name="dialog_text_name">Ups!&#8230;Looks like we are missing your name. Please try again!</string>
+    <string name="dialog_text_misspelled">Ups!&#8230;Looks like you misspelled your email address. Please try again!</string>
+    <string name="dialog_title_password_2">Check your Password</string>
+    <string name="dialog_text_password_2">Ups!&#8230;Looks like your forgot your password. Please try again!</string>
+    <string name="dialog_title_password_1">Check your Password</string>
+    <string name="dialog_text_password_1">Ups!&#8230;Are you sure this is your password. Passwords in this app have more than 8 characters. Please try again!</string>
+    <string name="dialog_title_re_password">Check your Passwords</string>
+    <string name="dialog_text_re_password">Ups!&#8230;The passwords do not match. Please try again!</string>
 </resources>

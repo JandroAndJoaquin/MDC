@@ -1,6 +1,7 @@
 package com.example.android.mdc.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -41,12 +42,10 @@ public class LoginActivity extends AppCompatActivity {
 
         SoftKeyboard softKeyboard;
         softKeyboard = new SoftKeyboard(rootV, im);
-        softKeyboard.setSoftKeyboardCallback(new SoftKeyboard.SoftKeyboardChanged()
-        {
+        softKeyboard.setSoftKeyboardCallback(new SoftKeyboard.SoftKeyboardChanged() {
 
             @Override
-            public void onSoftKeyboardHide()
-            {
+            public void onSoftKeyboardHide() {
                 Log.v("JANDRO", "Hidden");
                 runOnUiThread(new Runnable() {
                     @Override
@@ -57,8 +56,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onSoftKeyboardShow()
-            {
+            public void onSoftKeyboardShow() {
                 Log.v("JANDRO", "Shown");
 
                 runOnUiThread(new Runnable() {
@@ -70,5 +68,22 @@ public class LoginActivity extends AppCompatActivity {
                 });
             }
         });
+
+
+        /*This is an Intent to go to SingUpActivity*/
+
+        android.widget.TextView signUpView = (TextView) findViewById(R.id.login_sign_up);
+
+        signUpView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(intent);
+            }
+
+        });
+
+
     }
 }
