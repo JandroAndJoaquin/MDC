@@ -18,7 +18,7 @@ import com.example.android.mdc.R;
 import com.example.android.mdc.helpers.SoftKeyboard;
 
 public class LoginActivity extends AppCompatActivity {
-
+    //declare local variables
     TextView title1, title2;
     FrameLayout rootV;
     Context ctx;
