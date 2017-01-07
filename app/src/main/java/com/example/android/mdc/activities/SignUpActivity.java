@@ -14,33 +14,31 @@ import android.widget.TextView;
 
 import com.example.android.mdc.R;
 
+import static com.example.android.mdc.R.id.login_sign_up_1;
 import static com.example.android.mdc.R.id.sign_up_button;
+
 
 public class SignUpActivity extends AppCompatActivity {
     TextView title1, title2;
+    EditText title3, email, name, password, re_password;
     FrameLayout rootView;
     Context ctx;
     AlertDialog.Builder builder;
-    EditText email;
-    EditText name;
-    EditText password;
-    EditText re_password;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
-        /*this is a test
-
-         */
         ctx = SignUpActivity.this;
-        rootView = (FrameLayout) findViewById(R.id.login_root_view_1);
         title1 = (TextView) findViewById(R.id.login_title_1);
         title2 = (TextView) findViewById(R.id.login_title_2);
-        name = (EditText) findViewById(R.id.login_sign_up_1);
+        name = (EditText) findViewById(login_sign_up_1);
         email = (EditText) findViewById(R.id.login_sign_up_2);
         password = (EditText) findViewById(R.id.login_sign_up_3);
         re_password = (EditText) findViewById(R.id.login_sign_up_4);
+        rootView = (FrameLayout) findViewById(R.id.login_root_view_1);
+        title3 = (EditText) findViewById(R.id.login_sign_up_1);
+
 
 
         Typeface robotoLight = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Thin.ttf");
@@ -49,7 +47,7 @@ public class SignUpActivity extends AppCompatActivity {
         title1.setTypeface(robotoLight);
         title2.setTypeface(robotoBold);
 
-        /*This is an Intent to go to LoginActivity*/
+       /*This is an Intent to go to LoginActivity*/
 
         android.widget.TextView signUpView = (TextView) findViewById(R.id.login_sign_up);
 
@@ -102,7 +100,6 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
 
-
     }
 
     public boolean isEmpty(String t){
@@ -112,6 +109,8 @@ public class SignUpActivity extends AppCompatActivity {
     public boolean isLoongEnogh(int length, String txt){
         return txt.length()<length;
     }
+
+
 }
 
 

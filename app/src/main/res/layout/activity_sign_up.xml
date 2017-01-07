@@ -54,7 +54,8 @@
             style="@style/login_text_input_style"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/login_title_2" />
+            app:layout_constraintTop_toBottomOf="@+id/login_title_2"
+            />
         <EditText
             android:inputType="textEmailAddress"
             android:id="@+id/login_sign_up_2"
@@ -65,29 +66,27 @@
             style="@style/login_text_input_style"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/login_sign_up_1" />
+            app:layout_constraintTop_toBottomOf="@+id/login_sign_up_1"/>
 
         <EditText
-            android:inputType="textEmailAddress"
+            android:inputType="textPassword"
             android:id="@+id/login_sign_up_3"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login_sign_up_2"
             android:hint="@string/login_pass_text_placeholder"
-            android:password="true"
             android:theme="@style/login_text_input_theme"
             style="@style/login_text_input_style"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
 
         <EditText
-            android:inputType="textEmailAddress"
+            android:inputType="textPassword"
             android:id="@+id/login_sign_up_4"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login_sign_up_3"
             android:hint="@string/re_enter_pass"
-            android:password="true"
             android:theme="@style/login_text_input_theme"
             style="@style/login_text_input_style"
             android:layout_width="0dp"
@@ -102,10 +101,9 @@
             android:textColor="#fff"
             app:layout_constraintRight_toRightOf="@+id/login_sign_up_4"
             app:layout_constraintLeft_toLeftOf="@+id/login_sign_up_4"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login_sign_up_4"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="0.38" />
+            android:layout_marginTop="128dp"
+            app:layout_constraintHorizontal_bias="0.0" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -116,7 +114,7 @@
             app:layout_constraintRight_toRightOf="@+id/sign_up_button"
             app:layout_constraintLeft_toLeftOf="@+id/sign_up_button"
             android:layout_width="wrap_content"
-            app:layout_constraintHorizontal_bias="0.54">
+            >
         <TextView
             android:text="@string/sign_up_sign_up"
             android:layout_width="wrap_content"
