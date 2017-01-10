@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">MDC</string>
+    <string name="mdc">Map Data Collector</string>
     <string name="login_title1">Map Data</string>
     <string name="login_title2">COLLECTOR</string>
     <string name="login_user_text_placeholder">Email Address</string>
@@ -14,4 +15,11 @@
     <string name="login_invalid_email">Ups!&#8230;Looks like you misspelled your email address. Please try again!!</string>
     <string name="login_forgot_pass">Ups!&#8230;Looks like you forgot your password. Its important to know you are YOU!!</string>
     <string name="login_too_short_pass">Ups!&#8230;Are you sure this is your password? Passwords in this app have more than 8 characters. Please try again!</string>
+    <string name="slide_1_title">Stay located</string>
+    <string name="slide_1_desc">Get full location data of all your jobs. Get and share directions of your jobs from your exact location.</string>
+    <string name="slide_2_title">Stay handy</string>
+    <string name="slide_2_desc">Get access to all your jobs files and data. Read all of your files right from your phone or tablet.</string>
+    <string name="slide_3_title">Stay in touch</string>
+    <string name="slide_3_desc">Chat with all your co-workers, share ideas, solutions and be part of the community!!</string>
+
 </resources>

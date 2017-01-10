@@ -1,6 +1,7 @@
 package com.example.android.mdc.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -86,6 +87,8 @@ public class LoginActivity extends AppCompatActivity {
                     alertBuilder.setTitle(R.string.login_check_pass).setMessage(R.string.login_forgot_pass).setPositiveButton("OK", null).create().show();
                 }else if(!isTextLongEnough(8, passText)){
                     alertBuilder.setTitle(R.string.login_check_pass).setMessage(R.string.login_too_short_pass).setPositiveButton("OK", null).create().show();
+                }else{
+                    startActivity(new Intent(ctx, HomeActivity.class));
                 }
             }
         });
