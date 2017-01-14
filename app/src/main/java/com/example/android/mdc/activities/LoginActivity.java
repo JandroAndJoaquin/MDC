@@ -51,11 +51,10 @@ public class LoginActivity extends AppCompatActivity {
 
         SoftKeyboard softKeyboard;
         softKeyboard = new SoftKeyboard(rootV, im);
-        softKeyboard.setSoftKeyboardCallback(new SoftKeyboard.SoftKeyboardChanged()
-        {
+        softKeyboard.setSoftKeyboardCallback(new SoftKeyboard.SoftKeyboardChanged() {
 
             @Override
-            public void onSoftKeyboardHide(){
+            public void onSoftKeyboardHide() {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -65,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
+
             public void onSoftKeyboardShow(){
                 runOnUiThread(new Runnable() {
                     @Override
@@ -91,6 +91,19 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(new Intent(ctx, HomeActivity.class));
                 }
             }
+        });
+      /*This is an Intent to go to SingUpActivity*/
+
+        android.widget.TextView signUpView = (TextView) findViewById(R.id.login_sign_up);
+
+        signUpView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(intent);
+            }
+
         });
     }
     public static boolean isEmailValid(String email){

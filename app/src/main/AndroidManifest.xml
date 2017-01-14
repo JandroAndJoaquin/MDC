@@ -8,22 +8,31 @@
         android:label="@string/mdc"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.HomeActivity">
+        <activity android:name=".activities.HomeActivity" />
+        <activity
+            android:name=".activities.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".activities.LoginActivity"
-            android:theme="@style/NoActionBar"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait">
+
 
         </activity>
+
         <activity android:name=".activities.WelcomeActivity"
             android:label="Welcome"/>
+        <activity
+            android:name=".activities.SignUpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBar"></activity>
+        <activity
+            android:name=".activities.WelcomeBack"
+            android:label="@string/title_activity_welcome_back"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
