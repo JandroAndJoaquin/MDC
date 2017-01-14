@@ -23,4 +23,10 @@
     <string name="dialog_text_password_1">Ups!&#8230;Are you sure this is your password. Passwords in this app have more than 8 characters. Please try again!</string>
     <string name="dialog_title_re_password">Check your Passwords</string>
     <string name="dialog_text_re_password">Ups!&#8230;The passwords do not match. Please try again!</string>
+    <string name="title_activity_welcome_back">WelcomeBack</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
