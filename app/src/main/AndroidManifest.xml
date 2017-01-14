@@ -8,7 +8,8 @@
         android:label="@string/mdc"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.HomeActivity" />
+        <activity android:name=".activities.HomeActivity">
+        </activity>
         <activity
             android:name=".activities.LoginActivity"
             android:screenOrientation="portrait"
@@ -19,8 +20,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
         </activity>
 
         <activity android:name=".activities.WelcomeActivity"
@@ -28,11 +27,11 @@
         <activity
             android:name=".activities.SignUpActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar"></activity>
+            android:theme="@style/NoActionBar"/>
         <activity
             android:name=".activities.WelcomeBack"
             android:label="@string/title_activity_welcome_back"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
