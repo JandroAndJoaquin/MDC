@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">MDC</string>
+    <string name="mdc">Map Data Collector</string>
     <string name="login_title1">Map Data</string>
     <string name="login_title2">COLLECTOR</string>
     <string name="login_user_text_placeholder">Email Address</string>
