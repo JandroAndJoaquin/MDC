@@ -1,11 +1,15 @@
 package com.example.android.mdc.activities;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -17,10 +21,18 @@ import android.widget.TextView;
 
 import com.example.android.mdc.R;
 import com.example.android.mdc.helpers.SoftKeyboard;
+import com.example.android.mdc.models.LogedIn;
+import com.example.android.mdc.services.ApiService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
     //declare local variables
-    TextView title1, title2;
+    TextView title1, title2, signUpLink;
     FrameLayout rootV;
     Context ctx;
     ImageView logo;
@@ -39,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         title1 = (TextView) findViewById(R.id.login_title_1);
         title2 = (TextView) findViewById(R.id.login_title_2);
         submitBtn = (Button) findViewById(R.id.login_login_button);
+        signUpLink= (TextView) findViewById(R.id.login_sign_up);
         Typeface robotoLight = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Thin.ttf");
         Typeface robotoRegular = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Regular.ttf");
         Typeface robotoBold = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Bold.ttf");
@@ -64,7 +77,6 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-
             public void onSoftKeyboardShow(){
                 runOnUiThread(new Runnable() {
                     @Override
@@ -81,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String emailText = email.getText().toString();
                 String passText = password.getText().toString();
+
                 if(!isEmailValid(emailText)){
                     alertBuilder.setTitle(R.string.login_check_email).setMessage(emailText.equals("")?R.string.login_forgot_email:R.string.login_invalid_email).setPositiveButton("OK", null).create().show();
                 }else if(passText.equals("")){
@@ -88,15 +101,12 @@ public class LoginActivity extends AppCompatActivity {
                 }else if(!isTextLongEnough(8, passText)){
                     alertBuilder.setTitle(R.string.login_check_pass).setMessage(R.string.login_too_short_pass).setPositiveButton("OK", null).create().show();
                 }else{
+                    tryloginUser(emailText, passText);
                     startActivity(new Intent(ctx, HomeActivity.class));
                 }
             }
         });
-      /*This is an Intent to go to SingUpActivity*/
-
-        android.widget.TextView signUpView = (TextView) findViewById(R.id.login_sign_up);
-
-        signUpView.setOnClickListener(new View.OnClickListener() {
+        signUpLink.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -106,10 +116,57 @@ public class LoginActivity extends AppCompatActivity {
 
         });
     }
+
     public static boolean isEmailValid(String email){
         return !(email==null) && Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
     public static boolean isTextLongEnough(int amount, String text){
-        return text!=null && text.length()>amount;
+        return text!=null && text.length()>=amount;
+    }
+
+    private void tryloginUser(String email, String password){
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://jandrorojas.xyz/public/").addConverterFactory(GsonConverterFactory.create()).build();
+        ApiService service = retrofit.create(ApiService.class);
+        Call<LogedIn> call = service.logInUser(email, password);
+
+        call.enqueue(new Callback<LogedIn>() {
+            @Override
+            public void onResponse(Call<LogedIn> call, Response<LogedIn> response) {
+                //LogedIn data = response.body();
+                Log.v("MyToken", "Code: "+response.raw().code()+" | Message: "+response.raw().message());
+                if(response.raw().code()==403){
+                    alertBuilder.setTitle(R.string.login_invalid_user_title).setMessage(R.string.login_invalid_user_message).setPositiveButton("OK", null).create().show();
+                }else{
+                    AccountManager am = AccountManager.get(ctx);
+                    if(!checkIfAccountExists(am)){
+                        //TODO: add the new account
+                        //TODO: add the data to the account
+                    }else{
+                        //TODO: somehow just reset the parameters value
+                    }
+                }
+                LogedIn data = response.body();
+                Log.v("Jandro", "Token"+data.getToken());
+            }
+
+            @Override
+            public void onFailure(Call<LogedIn> call, Throwable t) {
+                Log.e("Jandro", t.getMessage());
+            }
+        });
+    }
+
+    private boolean checkIfAccountExists(AccountManager am){
+        String permission = "android.permission.GET_ACCOUNTS";
+        int res = ctx.checkCallingOrSelfPermission(permission);
+        if(res == PackageManager.PERMISSION_GRANTED){
+            Account[] accounts = am.getAccounts();
+            for(Account account : accounts) {
+                if(account.name.equals("MapDataCollector")) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
