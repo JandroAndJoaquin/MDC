@@ -47,5 +47,6 @@
     <string name="action_settings">Settings</string>
     <string name="login_invalid_user_title">Invalid credentials</string>
     <string name="login_invalid_user_message">The email and/or password provided don\'t match with any user in our database. Please, try again. </string>
-
+    <string name="error_getting_user_data">Ugh! This is embarrassing</string>
+    <string name="error_getting_user_description">We\'ve had a problem fetching your data from the server. Please try again!</string>
 </resources>

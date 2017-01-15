@@ -2,6 +2,7 @@ package com.example.android.mdc.services;
 
 import com.example.android.mdc.models.LogedIn;
 import com.example.android.mdc.models.Person;
+import com.example.android.mdc.models.User;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 /**
@@ -22,4 +24,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("api/auth/login")
     Call<LogedIn> logInUser(@Field("email") String email, @Field("password") String password);
+
+    @GET("api/user")
+    Call<User> getUSerDetails(@Header("Authorization") String token);
 }
