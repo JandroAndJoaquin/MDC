@@ -3,13 +3,11 @@ package com.example.android.mdc.activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -21,7 +19,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -37,30 +34,22 @@ import android.widget.TextView;
 
 import com.example.android.mdc.R;
 import com.example.android.mdc.helpers.CircleTransform;
-import com.example.android.mdc.models.JobsData;
 import com.example.android.mdc.services.ApiParams;
-import com.example.android.mdc.services.ApiService;
 import com.example.android.mdc.utils.DensityCalculator;
 import com.example.android.mdc.utils.SharedPreference;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class WelcomeBack extends ActionBarActivity  implements NavigationView.OnNavigationItemSelectedListener {
     Context ctx; String userId;
     SharedPreference prefs;
-    ImageView avatar_toolbar, avatar_navbar;
+    ImageView avatar_toolbar, avatar_navbar, back_drop_navbar;
     TextView bar_header, navUserName, navUserEmail, progressCount, finishCount, startedCount, workingCount;
     RelativeLayout ringsContainer;
     Typeface robotoLight;
@@ -137,30 +126,15 @@ public class WelcomeBack extends ActionBarActivity  implements NavigationView.On
         navUserName = (TextView) nav_header.findViewById(R.id.nav_userName);
         navUserEmail = (TextView) nav_header.findViewById(R.id.nav_userEmail);
         avatar_navbar = (ImageView) nav_header.findViewById(R.id.nav_userAvatar);
+        back_drop_navbar = (ImageView) nav_header.findViewById(R.id.back_drop_img);
         if(userId!=null && !userId.equals("")){
-            //this line has to be twice (Picasso Bug);
+            //these lines have to come twice (Picasso Bug);
             Picasso.with(ctx).load(api.getBaseUrl()+"avatar/"+userId).transform(new CircleTransform()).into(avatar_toolbar);
             Picasso.with(ctx).load(api.getBaseUrl()+"avatar/"+userId).transform(new CircleTransform()).into(avatar_toolbar);
-            Target tgt = new Target() {
-                @Override
-                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                    View header = navigationView.getHeaderView(0);
-                    header.setBackground(new BitmapDrawable(bitmap));
-//                    if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.JELLY_BEAN){
-//                        header.setBackground(new BitmapDrawable(bitmap));
-//                    }else{
-////                        header.setBackgroundDrawable(new BitmapDrawable(bitmap));
-//                    }
-                }
-                @Override
-                public void onBitmapFailed(Drawable errorDrawable) {
-                    Log.v("Jandro", "Something failed here");
-                }
-                @Override
-                public void onPrepareLoad(Drawable placeHolderDrawable) {                }
-            };
-            Picasso.with(ctx).load(api.getBaseUrl()+"bdrop/"+userId).into(tgt);
-            Picasso.with(ctx).load(api.getBaseUrl()+"bdrop/"+userId).into(tgt);
+            Picasso.with(ctx).load(api.getBaseUrl()+"avatar/"+userId).transform(new CircleTransform()).into(avatar_navbar);
+            Picasso.with(ctx).load(api.getBaseUrl()+"avatar/"+userId).transform(new CircleTransform()).into(avatar_navbar);
+            Picasso.with(ctx).load(api.getBaseUrl()+"bdrop/"+userId).into(back_drop_navbar);
+            Picasso.with(ctx).load(api.getBaseUrl()+"bdrop/"+userId).into(back_drop_navbar);
             navUserName.setText(prefs.getValue("userName"));
             navUserEmail.setText(prefs.getValue("userEmail"));
         }else{
@@ -267,47 +241,6 @@ public class WelcomeBack extends ActionBarActivity  implements NavigationView.On
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 startActivity(new Intent(ctx, LoginActivity.class));
             }
-        });
-    }
-    public void getJobsData(String token, final TextView progress, final TextView finished, final TextView started, final TextView working, final Circles rings, final ViewGroup parent){
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://jandrorojas.xyz/public/").addConverterFactory(GsonConverterFactory.create()).build();
-        final ApiService service = retrofit.create(ApiService.class);
-        //TODO try fetching user data
-        Call<JobsData> call = service.getJobsData("Bearer{"+token+"}");
-        call.enqueue(new Callback<JobsData>() {
-            @Override
-            public void onResponse(Call<JobsData> call, Response<JobsData> response) {
-
-                JobsData data = response.body();
-                if(response.raw().code()==200){
-                    toggleLoading(false);
-                    int total = data.getTotal(); int nProgress = data.getInProgress(); int nWorking = data.getWorking();
-                    int nfinished = data.getFinished(); int nstarted = data.getStarted();
-                    progress.setText(Integer.toString(nProgress));
-                    finished.setText(Integer.toString(nfinished));
-                    started.setText(Integer.toString(nstarted));
-                    working.setText(Integer.toString(nWorking));
-                    CircleAngleAnimation animation;
-                    if(total>0){
-                        float p = nProgress==0?-358:calcAngle(total,nProgress);
-                        float f = nfinished==0?-358:calcAngle(total,nfinished);
-                        float s = nstarted==0?-358:calcAngle(total,nstarted);
-                        float w = nWorking==0?-358:calcAngle(total,nWorking);
-                        animation = new CircleAngleAnimation(rings, p, f, s, w, total);
-                    }else{
-                        animation = new CircleAngleAnimation(rings, -358, -358,-358,-358, 0);
-                    }
-                    animation.setDuration(1000);
-                    rings.startAnimation(animation);
-
-
-                }else if(response.raw().code()==401){
-                    startActivity(new Intent(ctx, LoginActivity.class));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<JobsData> call, Throwable t) {}
         });
     }
 
