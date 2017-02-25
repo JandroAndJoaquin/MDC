@@ -8,6 +8,11 @@
     <color name="slide1">#00b3ba</color>
     <color name="slide2">#FFCA28</color>
     <color name="slide3">#ff5e4c</color>
+    <color name="tile_color">#383838</color>
+    <color name="inprogress">#4fc3f7</color>
+    <color name="finished">#4caf50</color>
+    <color name="started">#f44336</color>
+    <color name="working">#9c27b0</color>
 </resources>
 
 <!--<color name="colorPrimary">#263238</color>-->

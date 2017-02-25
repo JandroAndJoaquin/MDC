@@ -1,7 +1,9 @@
 package com.example.android.mdc.services;
 
+import com.example.android.mdc.models.JobsData;
 import com.example.android.mdc.models.LogedIn;
 import com.example.android.mdc.models.Person;
+import com.example.android.mdc.models.SignUp;
 import com.example.android.mdc.models.User;
 
 import java.util.List;
@@ -25,6 +27,13 @@ public interface ApiService {
     @POST("api/auth/login")
     Call<LogedIn> logInUser(@Field("email") String email, @Field("password") String password);
 
+    @FormUrlEncoded
+    @POST("api/auth/signup")
+    Call<SignUp> SignUpUser(@Field("name") String name, @Field("email") String email, @Field("password") String password);
+
     @GET("api/user")
     Call<User> getUSerDetails(@Header("Authorization") String token);
+
+    @GET("api/jobsdata")
+    Call<JobsData> getJobsData(@Header("Authorization") String token);
 }

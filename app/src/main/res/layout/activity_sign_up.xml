@@ -97,7 +97,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/sign_up_button"
-            android:background="@drawable/rounded_accented_button"
+            android:background="@drawable/login_btn"
             android:textColor="#fff"
             app:layout_constraintRight_toRightOf="@+id/login_sign_up_4"
             app:layout_constraintLeft_toLeftOf="@+id/login_sign_up_4"
@@ -130,7 +130,11 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="14sp"
                 tools:layout_editor_absoluteY="583dp"
-                tools:layout_editor_absoluteX="200dp" />
+                tools:layout_editor_absoluteX="200dp"
+                android:shadowColor="#00bfa5"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="10"/>
         </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>
