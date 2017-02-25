@@ -39,11 +39,25 @@
     <string name="dialog_text_password_1">Ups!&#8230;Are you sure this is your password. Passwords in this app have more than 8 characters. Please try again!</string>
     <string name="dialog_title_re_password">Check your Passwords</string>
     <string name="dialog_text_re_password">Ups!&#8230;The passwords do not match. Please try again!</string>
+    <string name="signup_ok_dialog_title">Awesome!!</string>
+    <string name="signup_ok_dialog">Your account has been created and it\'s ready to use. Welcome to the MapData Collector family. </string>
+    <string name="sign_up_wrong_dialog_title">Ugh! This is embarrassing &#8230;</string>
+    <string name="sign_up_wrong_dialog">Something went wrong while creating your account. Please try again later.</string>
     <string name="title_activity_welcome_back">WelcomeBack</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="login_invalid_user_title">Invalid credentials</string>
+    <string name="login_invalid_user_message">The email and/or password provided don\'t match with any user in our database. Please, try again. </string>
+    <string name="error_getting_user_data">Ugh! This is embarrassing</string>
+    <string name="error_getting_user_description">We\'ve had a problem fetching your data from the server. Please try again!</string>
 
+    <string name="welcome_back">Welcome back!</string>
+    <string name="welcome_jobs_tile_title">Jobs</string>
+    <string name="welcome_in_progress">In progress</string>
+    <string name="welcome_finished">Finished</string>
+    <string name="welcome_started">Started</string>
+    <string name="welcome_working">Working</string>
 </resources>
