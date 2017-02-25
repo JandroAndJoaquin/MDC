@@ -15,7 +15,6 @@
         <item name="colorPrimaryDark">@color/newColorDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    <!--TODO check the font-->
     <style name="login_title_1">
         <item name="android:textColor">#fff</item>
         <item name="android:textSize">54sp</item>
