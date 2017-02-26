@@ -14,4 +14,10 @@ public class ApiParams {
         return loginUrl;
     }
     String loginUrl = baseUrl+"auth/login";
+
+
+    public String getSignUpUrl() {
+        return signUpUrl;
+    }
+    String signUpUrl = baseUrl+"auth/signup";
 }

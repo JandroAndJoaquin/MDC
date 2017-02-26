@@ -131,10 +131,10 @@ public class WelcomeBack extends ActionBarActivity  implements NavigationView.On
             //these lines have to come twice (Picasso Bug);
             Picasso.with(ctx).load(api.getBaseUrl()+"avatar/"+userId).transform(new CircleTransform()).into(avatar_toolbar);
             Picasso.with(ctx).load(api.getBaseUrl()+"avatar/"+userId).transform(new CircleTransform()).into(avatar_toolbar);
-            Picasso.with(ctx).load(api.getBaseUrl()+"avatar/"+userId).transform(new CircleTransform()).into(avatar_navbar);
-            Picasso.with(ctx).load(api.getBaseUrl()+"avatar/"+userId).transform(new CircleTransform()).into(avatar_navbar);
-            Picasso.with(ctx).load(api.getBaseUrl()+"bdrop/"+userId).into(back_drop_navbar);
-            Picasso.with(ctx).load(api.getBaseUrl()+"bdrop/"+userId).into(back_drop_navbar);
+            Picasso.with(ctx).load(api.getBaseUrl()+"avatar/"+userId).error(R.drawable.user_unknown).transform(new CircleTransform()).into(avatar_navbar);
+            Picasso.with(ctx).load(api.getBaseUrl()+"avatar/"+userId).error(R.drawable.user_unknown).transform(new CircleTransform()).into(avatar_navbar);
+            Picasso.with(ctx).load(api.getBaseUrl()+"bdrop/"+userId).error(R.drawable.side_nav_bar).into(back_drop_navbar);
+            Picasso.with(ctx).load(api.getBaseUrl()+"bdrop/"+userId).error(R.drawable.side_nav_bar).into(back_drop_navbar);
             navUserName.setText(prefs.getValue("userName"));
             navUserEmail.setText(prefs.getValue("userEmail"));
         }else{
