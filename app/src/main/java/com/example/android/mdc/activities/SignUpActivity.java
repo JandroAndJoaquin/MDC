@@ -12,10 +12,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.android.mdc.R;
 import com.example.android.mdc.models.SignUp;
+import com.example.android.mdc.services.ApiParams;
 import com.example.android.mdc.services.ApiService;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -38,6 +40,9 @@ public class SignUpActivity extends AppCompatActivity {
     FrameLayout rootView;
     Context ctx;
     AlertDialog.Builder builder;
+    View overlay;
+    ProgressBar loader;
+    ApiParams api = new ApiParams();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,8 @@ public class SignUpActivity extends AppCompatActivity {
         re_password = (EditText) findViewById(R.id.login_sign_up_4);
         rootView = (FrameLayout) findViewById(R.id.login_root_view_1);
         title3 = (EditText) findViewById(R.id.login_sign_up_1);
+        overlay = findViewById(R.id.login_loader_overlay);
+        loader = (ProgressBar) findViewById(R.id.login_loader);
 
 
 
@@ -67,7 +74,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                Intent intent = new Intent(ctx, LoginActivity.class);
                 startActivity(intent);
             }
 
@@ -100,6 +107,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 //                    Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
 //                    startActivity(intent);
+                    toggleLoader(true);
                     trySignUp(name.getText().toString(), email.getText().toString(), password.getText().toString());
                 }else {
                     builder.setTitle(R.string.dialog_title_re_password).setMessage(R.string.dialog_text_re_password).setPositiveButton(R.string.dialog_ok, null).create().show();
@@ -159,9 +167,12 @@ public class SignUpActivity extends AppCompatActivity {
         data.put("email", email);
         data.put("password", password);
         AsyncHttpClient client = new AsyncHttpClient();
-        client.post("http://jandrorojas.xyz/api/auth/signup", data, new AsyncHttpResponseHandler() {
+        Log.v("Jandro", "Starting the call");
+        client.post(api.getSignUpUrl(), data, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                Log.v("Jandro", "ResponseCode: "+Integer.toString(statusCode)+". ");
+                Log.v("Jandro", "Response: "+new String(responseBody)+". ");
                 if(statusCode==201){
                     builder.setTitle(R.string.signup_ok_dialog_title).setMessage(R.string.signup_ok_dialog).setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
@@ -178,6 +189,16 @@ public class SignUpActivity extends AppCompatActivity {
                 builder.setTitle(R.string.sign_up_wrong_dialog_title).setMessage(getResources().getString(R.string.sign_up_wrong_dialog)+". Error code: "+statusCode+". Error Message: "+error.getMessage()).setPositiveButton("OK", null).create().show();
             }
         });
+    }
+
+    public void toggleLoader(boolean visible){
+        if(visible){
+            overlay.setVisibility(View.VISIBLE);
+            loader.setVisibility(View.VISIBLE);
+        }else{
+            loader.setVisibility(View.INVISIBLE);
+            overlay.setVisibility(View.INVISIBLE);
+        }
     }
 }
 
