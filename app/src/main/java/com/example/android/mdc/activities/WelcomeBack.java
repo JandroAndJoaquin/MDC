@@ -183,7 +183,7 @@ public class WelcomeBack extends ActionBarActivity  implements NavigationView.On
         if (id == R.id.home) {
             //go to home, since we're on it don't do nothing
         } else if (id == R.id.jobs) {
-
+            startActivity(new Intent(ctx, TestMaps.class));
         } else if (id == R.id.messages) {
 
         } else if (id == R.id.profile) {

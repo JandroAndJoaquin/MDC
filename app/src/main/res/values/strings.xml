@@ -60,4 +60,5 @@
     <string name="welcome_finished">Finished</string>
     <string name="welcome_started">Started</string>
     <string name="welcome_working">Working</string>
+    <string name="title_activity_test_maps">MapTest</string>
 </resources>
