@@ -81,4 +81,12 @@
         <item name="android:layout_width">20dp</item>
         <item name="android:layout_height">20dp</item>
     </style>
+
+    <style name="jobMapInfoHeaderHeader">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/accentDarked</item>
+    </style>
+    <style name="jobMapInfoHeader">
+        <item name="android:textSize">15sp</item>
+    </style>
 </resources>

@@ -59,8 +59,9 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".activities.TestMaps"
-            android:label="@string/title_activity_test_maps"></activity>
+            android:name=".activities.JobViewer"
+            android:label="@string/title_activity_test_maps"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

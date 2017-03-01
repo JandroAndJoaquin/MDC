@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#1e282d</color>
     <!--<color name="colorAccent">#de7116</color>-->
     <color name="colorAccent">#00bfa5</color>
+    <color name="accentDarked">#008b78</color>
     <color name="newColorDark">#1e282d</color>
     <color name="slide1">#00b3ba</color>
     <color name="slide2">#FFCA28</color>
