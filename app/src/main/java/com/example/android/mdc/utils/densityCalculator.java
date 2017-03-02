@@ -36,4 +36,14 @@ public class DensityCalculator {
         float px = sp * metrics.scaledDensity;
         return px;
     }
+
+    public static float getScreenHeight(String dim){
+        float height=0;
+        if(dim.equals("px")){
+            height = metrics.heightPixels;
+        }else if(dim.equals("dp")){
+            height = getDpFromPx(metrics.heightPixels);
+        }
+        return height;
+    }
 }

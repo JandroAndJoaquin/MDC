@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context="com.example.android.mdc.activities.WelcomeBack">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/mapToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:elevation="4dp"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.constraint.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:context="com.example.android.mdc.activities.JobViewer" />
+
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/jobMap_infoContainer"
+                    android:animateLayoutChanges="true"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="0dp"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    android:layout_marginTop="220dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/map_info_bkr_9"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:visibility="invisible">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintRight_toLeftOf="@+id/mapUserAvatar"
+                        app:layout_constraintTop_toTopOf="@+id/mapUserAvatar"
+                        app:layout_constraintBottom_toBottomOf="@+id/mapUserAvatar"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
+                        app:layout_constraintVertical_bias="0.9">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="Job Name"
+                            style="@style/jobMapInfoHeaderHeader"/>
+                        <TextView
+                            android:id="@+id/jobMap_JobName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="Jandro's Job"
+                            style="@style/jobMapInfoHeader"/>
+                    </LinearLayout>
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        app:srcCompat="@drawable/user_unknown"
+                        android:id="@+id/mapUserAvatar"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginEnd="16dp"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:layout_marginRight="16dp" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintLeft_toRightOf="@+id/mapUserAvatar"
+                        app:layout_constraintTop_toTopOf="@+id/mapUserAvatar"
+                        app:layout_constraintBottom_toBottomOf="@+id/mapUserAvatar"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        app:layout_constraintVertical_bias="0.9">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:text="Company"
+                            style="@style/jobMapInfoHeaderHeader"/>
+                        <TextView
+                            android:id="@+id/jobMap_CompanyName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:text="BenchMark"
+                            style="@style/jobMapInfoHeader"/>
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/jobmap_createdAt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/mapUserAvatar"
+                        style="@style/jobMapInfoHeaderHeader"
+                        android:text="Mon Feb 27th 2017 at 9:32 PM"
+                        android:gravity="center"
+                        android:layout_marginTop="8dp"/>
+
+                    <ScrollView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/jobmap_createdAt"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginTop="8dp">
+                        <android.support.constraint.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <!--Address Layout-->
+                            <LinearLayout
+                                android:id="@+id/jonMaps_addressContainer"
+                                android:layout_width="0dp"
+                                android:layout_height="48dp"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:layout_marginTop="8dp"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    style="@style/jobMap_icon"
+                                    app:srcCompat="@drawable/google_maps"
+                                    android:id="@+id/jobMap_googlemap_icon"/>
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_weight="1"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginStart="8dp"
+                                    android:paddingRight="32dp"
+                                    android:paddingEnd="32dp">
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        style="@style/jobMapInfoHeaderHeader"
+                                        android:text="Address"
+                                        android:gravity="start"/>
+                                    <TextView
+                                        android:id="@+id/jobMap_address"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        style="@style/jobMapInfoHeader"
+                                        android:gravity="start"
+                                        android:text="8201NW 8TH ST APT 111, Miami FL, 33126"/>
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <!--Date Layout-->
+                            <LinearLayout
+                                android:id="@+id/jobsMap_fieldsdateContainer"
+                                android:layout_width="0dp"
+                                android:layout_height="48dp"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/jonMaps_addressContainer"
+                                android:layout_marginTop="32dp"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    style="@style/jobMap_icon"
+                                    app:srcCompat="@drawable/calendar_icon"
+                                    android:id="@+id/jobMap_calendar_icon"/>
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_weight="1"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginStart="8dp"
+                                    android:paddingRight="32dp"
+                                    android:paddingEnd="32dp">
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        style="@style/jobMapInfoHeaderHeader"
+                                        android:text="Field work's date"
+                                        android:gravity="start"/>
+                                    <TextView
+                                        android:id="@+id/jobMap_field_date"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        style="@style/jobMapInfoHeader"
+                                        android:gravity="start"
+                                        android:text="Tuesday Feb 28th 2017"/>
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <!--Notes Layout-->
+                            <LinearLayout
+                                android:id="@+id/jobMap_notesContainer"
+                                android:layout_width="0dp"
+                                android:layout_height="48dp"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/jobsMap_fieldsdateContainer"
+                                android:layout_marginTop="32dp"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    style="@style/jobMap_icon"
+                                    app:srcCompat="@drawable/notes_icon"
+                                    android:id="@+id/jobMap_notes_icon"/>
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_weight="1"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginStart="8dp"
+                                    android:paddingRight="32dp"
+                                    android:paddingEnd="32dp">
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        style="@style/jobMapInfoHeaderHeader"
+                                        android:text="Notes"
+                                        android:gravity="start"/>
+                                    <TextView
+                                        android:id="@+id/jobMap_notes"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        style="@style/jobMapInfoHeader"
+                                        android:gravity="start"
+                                        android:text="Test notes. This is just to test ho the notes would look in this section. These can be as long as needed so we need to test how it would look like."/>
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <!--Files Layout-->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintTop_toBottomOf="@+id/jobMap_notesContainer"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                android:layout_marginTop="32dp"
+                                android:background="@drawable/card_rounded_shadow_9"
+                                android:orientation="vertical"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_marginRight="16dp"
+                                android:paddingTop="16dp"
+                                android:paddingBottom="16dp"
+                                android:paddingRight="32dp"
+                                android:paddingLeft="32dp"
+                                android:paddingStart="32dp"
+                                android:paddingEnd="32dp">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    style="@style/jobMapInfoHeaderHeader"
+                                    android:text="Files"
+                                    android:gravity="start"/>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginBottom="8dp">
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        app:srcCompat="@drawable/pdf_icon"
+                                        android:id="@+id/imageView3"
+                                        android:layout_marginRight="8dp"
+                                        android:layout_marginEnd="8dp"/>
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        style="@style/jobMapInfoHeader"
+                                        android:text="Sample_1.pdf"/>
+                                </LinearLayout>
+
+                            </LinearLayout>
+                        </android.support.constraint.ConstraintLayout>
+
+                    </ScrollView>
+
+
+                </android.support.constraint.ConstraintLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_welcome_back"
+        app:menu="@menu/activity_welcome_back_drawer"/>
+
+
+
+</android.support.v4.widget.DrawerLayout>
+
+
+
+
+
