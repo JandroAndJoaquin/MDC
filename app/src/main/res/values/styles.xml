@@ -82,6 +82,16 @@
         <item name="android:layout_height">20dp</item>
     </style>
 
+    <style name="jobMap_icon">
+        <item name="android:layout_width">35dp</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:layout_marginLeft">32dp</item>
+        <item name="android:layout_marginStart">32dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:alpha">0.8</item>
+    </style>
+
     <style name="jobMapInfoHeaderHeader">
         <item name="android:textSize">11sp</item>
         <item name="android:textColor">@color/accentDarked</item>

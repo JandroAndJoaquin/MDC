@@ -17,6 +17,8 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -49,6 +51,7 @@ public class JobViewer extends AppCompatActivity implements OnMapReadyCallback, 
     Typeface robotoLight;
     ApiParams api=new ApiParams();
     ConstraintLayout infoPanel;
+    Animation slideUpAnimation;
 
 
     @Override
@@ -56,11 +59,11 @@ public class JobViewer extends AppCompatActivity implements OnMapReadyCallback, 
         super.onCreate(savedInstanceState);
         ctx = this;
         prefs = new SharedPreference(ctx); userId = prefs.getValue("userId");
-        setContentView(R.layout.activity_test_maps);
+        setContentView(R.layout.activity_job_viewer);
         dcalc  = new DensityCalculator(ctx);
         infoPanel= (ConstraintLayout) findViewById(R.id.jobMap_infoContainer) ;
         robotoLight = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
-
+        slideUpAnimation = AnimationUtils.loadAnimation(ctx, R.anim.slide_up_animation);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.mapToolbar);
         setSupportActionBar(toolbar);
@@ -136,7 +139,7 @@ public class JobViewer extends AppCompatActivity implements OnMapReadyCallback, 
 
         mMap.addMarker(new MarkerOptions().position(mrkr).title("Job Name"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(usa));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mrkr, 15), 2000, new GoogleMap.CancelableCallback() {
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mrkr, 15), 1000, new GoogleMap.CancelableCallback() {
             @Override
             public void onFinish() {
                 slideUpPanel(infoPanel);
@@ -212,8 +215,10 @@ public class JobViewer extends AppCompatActivity implements OnMapReadyCallback, 
     }
 
     public void slideUpPanel(ConstraintLayout layout){
-        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams)layout.getLayoutParams();
-        params.topMargin = Math.round(dcalc.getPxFromDp(220));
-        layout.setLayoutParams(params);
+//        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams)layout.getLayoutParams();
+//        params.topMargin = Math.round(dcalc.getPxFromDp(220));
+//        layout.setLayoutParams(params);
+        layout.setVisibility(View.VISIBLE);
+        layout.startAnimation(slideUpAnimation);
     }
 }

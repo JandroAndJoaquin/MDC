@@ -60,13 +60,14 @@
                     android:layout_width="0dp"
                     app:layout_constraintVertical_bias="0.0"
                     app:layout_constraintHorizontal_bias="0.0"
-                    android:layout_marginTop="1000dp"
+                    android:layout_marginTop="220dp"
                     android:layout_height="0dp"
                     android:background="@drawable/map_info_bkr_9"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp">
+                    android:layout_marginLeft="8dp"
+                    android:visibility="invisible">
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -162,12 +163,9 @@
                                 android:orientation="horizontal">
 
                                 <ImageView
-                                    android:layout_width="35dp"
-                                    android:layout_height="35dp"
+                                    style="@style/jobMap_icon"
                                     app:srcCompat="@drawable/google_maps"
-                                    android:id="@+id/jobMap_googlemap_icon"
-                                    android:layout_marginLeft="32dp"
-                                    android:layout_marginStart="32dp"/>
+                                    android:id="@+id/jobMap_googlemap_icon"/>
                                 <LinearLayout
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
@@ -205,12 +203,9 @@
                                 android:orientation="horizontal">
 
                                 <ImageView
-                                    android:layout_width="35dp"
-                                    android:layout_height="35dp"
+                                    style="@style/jobMap_icon"
                                     app:srcCompat="@drawable/calendar_icon"
-                                    android:id="@+id/jobMap_calendar_icon"
-                                    android:layout_marginLeft="32dp"
-                                    android:layout_marginStart="32dp"/>
+                                    android:id="@+id/jobMap_calendar_icon"/>
                                 <LinearLayout
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
@@ -248,12 +243,9 @@
                                 android:orientation="horizontal">
 
                                 <ImageView
-                                    android:layout_width="35dp"
-                                    android:layout_height="35dp"
+                                    style="@style/jobMap_icon"
                                     app:srcCompat="@drawable/notes_icon"
-                                    android:id="@+id/jobMap_notes_icon"
-                                    android:layout_marginLeft="32dp"
-                                    android:layout_marginStart="32dp"/>
+                                    android:id="@+id/jobMap_notes_icon"/>
                                 <LinearLayout
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
