@@ -3,35 +3,67 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="65dp"
-    android:gravity="center_vertical|start">
+    android:gravity="center_vertical|start"
+    android:layout_height="72dp"
+    android:id="@+id/job_item_cont"
+    android:background="@drawable/job_list_background">
 
     <ImageView
         android:layout_width="36dp"
         android:layout_height="36dp"
-        app:srcCompat="@drawable/benchmark_icon"
-        android:id="@+id/imageView2"
+        app:srcCompat="@drawable/surveyor_dflt"
+        android:id="@+id/job_item_logo"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"/>
+        android:layout_marginEnd="16dp" />
+
+    <!--<ImageView-->
+        <!--android:layout_width="36dp"-->
+        <!--android:layout_height="36dp"-->
+        <!--app:srcCompat="@drawable/benchmark_icon"-->
+        <!--android:id="@+id/imageView2"-->
+        <!--android:layout_marginLeft="16dp"-->
+        <!--android:layout_marginRight="16dp"-->
+        <!--android:layout_marginStart="16dp"-->
+        <!--android:layout_marginEnd="16dp"/>-->
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_weight="1"
         android:gravity="center_vertical|start">
         <TextView
+            android:id="@+id/job_item_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1611-8403"/>
-        <TextView
-            android:layout_width="match_parent"
+            android:text="1611-8403"
+            android:layout_marginBottom="8dp"
+            android:textColor="#333"
+            android:textSize="16sp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="8201 NW 8th ST Apt 111, Miami FL, 33126"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical|start">
+            <ImageView
+                android:layout_width="16sp"
+                android:layout_height="16sp"
+                android:src="@drawable/ic_person_pin_circle_black_36dp"
+                android:alpha="0.5"
+                android:layout_marginRight="8dp"/>
+            <TextView
+                android:id="@+id/job_item_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="8201 NW 8th ST Apt 111, Miami FL, 33126"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
     </LinearLayout>
     <View
+        android:id="@+id/job_item_status"
         android:layout_width="8dp"
         android:layout_height="match_parent"
         android:background="@color/colorAccent"/>

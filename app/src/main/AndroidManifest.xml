@@ -27,24 +27,19 @@
             android:name=".activities.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar"
-            android:windowSoftInputMode="adjustResize">
-        </activity>
+            android:windowSoftInputMode="adjustResize"></activity>
         <activity
             android:name=".activities.WelcomeActivity"
             android:label="Welcome" />
         <activity
             android:name=".activities.SignUpActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar"></activity>
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".activities.WelcomeBack"
             android:label="@string/title_activity_welcome_back"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -60,8 +55,18 @@
 
         <activity
             android:name=".activities.JobViewer"
-            android:label="@string/title_activity_test_maps"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:label="@string/jobViewerLabel"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.JobsActivity"
+            android:label="@string/jobsListLabel"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -61,4 +61,7 @@
     <string name="welcome_started">Started</string>
     <string name="welcome_working">Working</string>
     <string name="title_activity_test_maps">MapTest</string>
+
+    <string name="jobViewerLabel">Job Viewer</string>
+    <string name="jobsListLabel">Jobs</string>
 </resources>

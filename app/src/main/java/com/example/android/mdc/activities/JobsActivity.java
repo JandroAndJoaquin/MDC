@@ -5,74 +5,70 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.mdc.R;
+import com.example.android.mdc.adapters.JobsListAdapter;
 import com.example.android.mdc.helpers.CircleTransform;
 import com.example.android.mdc.services.ApiParams;
-import com.example.android.mdc.utils.DensityCalculator;
 import com.example.android.mdc.utils.SharedPreference;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.squareup.picasso.Picasso;
 
-import static com.example.android.mdc.R.id.map;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class JobViewer extends AppCompatActivity implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener {
+import cz.msebera.android.httpclient.Header;
 
-    private GoogleMap mMap;
+public class JobsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+
+    Context ctx; String userId, token;
     SharedPreference prefs;
-    Context ctx; String userId;
     ImageView avatar_toolbar, avatar_navbar, back_drop_navbar;
-    TextView bar_header, navUserName, navUserEmail, progressCount, finishCount, startedCount, workingCount;
-    DensityCalculator dcalc;
+    TextView bar_header, navUserName, navUserEmail;
     android.support.v7.app.ActionBar actionBar;
     View viewActionBar;
     DrawerLayout drawer;
     Typeface robotoLight;
     ApiParams api=new ApiParams();
-    ConstraintLayout infoPanel;
-    Animation slideUpAnimation;
-
+    AlertDialog.Builder alertBuilder;
+    RecyclerView recView;
+    JobsListAdapter adapter;
+    Integer page = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_jobs);
         ctx = this;
-        prefs = new SharedPreference(ctx); userId = prefs.getValue("userId");
-        setContentView(R.layout.activity_job_viewer);
-        dcalc  = new DensityCalculator(ctx);
-        infoPanel= (ConstraintLayout) findViewById(R.id.jobMap_infoContainer) ;
-        robotoLight = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
-        slideUpAnimation = AnimationUtils.loadAnimation(ctx, R.anim.slide_up_animation);
+        prefs = new SharedPreference(ctx);
+        userId = prefs.getValue("userId");
+        token = prefs.getValue("userToken");
+        alertBuilder = new AlertDialog.Builder(ctx);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.mapToolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.jobsToolbar);
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
         viewActionBar = ((Activity) ctx).getLayoutInflater().inflate(R.layout.app_bar_custom, null);
         avatar_toolbar = (ImageView) viewActionBar.findViewById(R.id.user_avatar);
         bar_header = (TextView) viewActionBar.findViewById(R.id.app_bar_name);
-
-        //setting fonts
 
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayShowCustomEnabled(true);
@@ -82,6 +78,11 @@ public class JobViewer extends AppCompatActivity implements OnMapReadyCallback, 
 
         ActionBar.LayoutParams params = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT, Gravity.CENTER);
         actionBar.setCustomView(viewActionBar, params);
+
+        recView = (RecyclerView) findViewById(R.id.jobs_list);
+        recView.setLayoutManager(new LinearLayoutManager(this));
+
+
 
         //syncing toggle btn to the drawer state
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -97,7 +98,8 @@ public class JobViewer extends AppCompatActivity implements OnMapReadyCallback, 
         navUserEmail = (TextView) nav_header.findViewById(R.id.nav_userEmail);
         avatar_navbar = (ImageView) nav_header.findViewById(R.id.nav_userAvatar);
         back_drop_navbar = (ImageView) nav_header.findViewById(R.id.back_drop_img);
-        if(userId!=null && !userId.equals("")){
+        if(token!=null && userId!=null && !userId.equals("")){
+            GetJobsByPage(token, page);
             //these lines have to come twice (Picasso Bug);
             //Picasso.with(ctx).load(api.getBaseUrl()+"avatar/"+userId).transform(new CircleTransform()).into(avatar_toolbar);
             //Picasso.with(ctx).load(api.getBaseUrl()+"avatar/"+userId).transform(new CircleTransform()).into(avatar_toolbar);
@@ -107,49 +109,11 @@ public class JobViewer extends AppCompatActivity implements OnMapReadyCallback, 
             Picasso.with(ctx).load(api.getBaseUrl()+"bdrop/"+userId).error(R.drawable.side_nav_bar).into(back_drop_navbar);
             navUserName.setText(prefs.getValue("userName"));
             navUserEmail.setText(prefs.getValue("userEmail"));
+
         }else{
             startActivity(new Intent(ctx, LoginActivity.class));
         }
 
-
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(map);
-        mapFragment.getMapAsync(this);
-    }
-
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-        LatLng usa = new LatLng(42.877742, -97.380979);
-        LatLng mrkr = new LatLng(25.715873, -80.322762);
-
-        mMap.setPadding(0,Math.round(dcalc.getPxFromDp(56)),0,Math.round(dcalc.getScreenHeight("px")-dcalc.getPxFromDp(256)));
-
-        mMap.addMarker(new MarkerOptions().position(mrkr).title("Job Name"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(usa));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mrkr, 15), 1000, new GoogleMap.CancelableCallback() {
-            @Override
-            public void onFinish() {
-                slideUpPanel(infoPanel);
-            }
-
-            @Override
-            public void onCancel() {
-
-            }
-        });
 
     }
 
@@ -192,10 +156,10 @@ public class JobViewer extends AppCompatActivity implements OnMapReadyCallback, 
         int id = item.getItemId();
 
         if (id == R.id.home) {
-            startActivity(new Intent(ctx, JobsActivity.class));
+            startActivity(new Intent(ctx, WelcomeBack.class));
         } else if (id == R.id.jobs) {
+            //go to jobs activity, since we're on it don't do nothing
 
-            //go to home, since we're on it don't do nothing
         } else if (id == R.id.messages) {
 
         } else if (id == R.id.profile) {
@@ -215,11 +179,30 @@ public class JobViewer extends AppCompatActivity implements OnMapReadyCallback, 
         return true;
     }
 
-    public void slideUpPanel(ConstraintLayout layout){
-//        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams)layout.getLayoutParams();
-//        params.topMargin = Math.round(dcalc.getPxFromDp(220));
-//        layout.setLayoutParams(params);
-        layout.setVisibility(View.VISIBLE);
-        layout.startAnimation(slideUpAnimation);
+    public void GetJobsByPage(String token, int page){
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get(api.getBaseUrl() + "jobs?page=" + Integer.toString(page)+"&token="+token, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if(statusCode==200){
+                    try{
+                        JSONObject response = new JSONObject(new String(responseBody));
+                        Log.v("Jandro", "Total "+response.getString("total"));
+                        adapter = new JobsListAdapter(response.getJSONArray("data"), ctx);
+                        recView.setAdapter(adapter);
+                    }catch(JSONException e){
+                        alertBuilder.setTitle(R.string.error_getting_user_data).setMessage(R.string.error_getting_user_description+" Error Message: "+e.getMessage()).setPositiveButton("OK", null).create().show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                if(statusCode==401){
+                    startActivity(new Intent(ctx, LoginActivity.class));
+                }
+                Log.v("Jandro", error.getMessage());
+            }
+        });
     }
 }
