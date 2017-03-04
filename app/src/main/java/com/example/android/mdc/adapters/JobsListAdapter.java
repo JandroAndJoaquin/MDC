@@ -22,11 +22,9 @@ import org.json.JSONObject;
 
 public class JobsListAdapter extends RecyclerView.Adapter<JobsListAdapter.JobsHolder>{
 
-//    private List<JobItem> listData;
     private JSONArray data;
     private LayoutInflater inflater;
 
-//    public JobsListAdapter(List<JobItem> list, Context ctx){
     public JobsListAdapter(JSONArray data, Context ctx){
         this.data = data;
         inflater = LayoutInflater.from(ctx);
@@ -45,7 +43,7 @@ public class JobsListAdapter extends RecyclerView.Adapter<JobsListAdapter.JobsHo
             holder.jobName.setText(job.getString("Name"));
             holder.address.setText(job.getString("Address"));
             holder.logo.setImageResource(R.drawable.surveyor_dflt);
-            switch(job.getString("status")){
+            switch(job.getString("Status")){
                 case "1":
                     //status in-progress #4fc3f7
                     holder.status.setBackgroundColor(Color.parseColor("#4fc3f7"));
@@ -67,10 +65,6 @@ public class JobsListAdapter extends RecyclerView.Adapter<JobsListAdapter.JobsHo
         }catch(JSONException e){
             Log.v("Jandro", e.getMessage());
         }
-//        JobItem job = listData.get(position);
-//        holder.jobName.setText(job.getJobName());
-//        holder.address.setText(job.getJobAddress());
-//        holder.logo.setImageResource(R.drawable.benchmark_icon);
     }
 
     @Override
